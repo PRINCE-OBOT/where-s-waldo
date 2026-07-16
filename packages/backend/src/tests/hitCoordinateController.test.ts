@@ -43,4 +43,20 @@ describe("POST /hit-coordinate", () => {
 
     expect(hitCoordinateRes.CharacterData).toHaveLength(3);
   });
+
+  test("Should not find any character", async () => {
+    const gameStartReq = await request(app)
+      .post("/game-start")
+      .send({ clientX: 100, clientY: 200 });
+
+    const gameSessionId = gameStartReq.body.gameSessionId;
+
+    const hitCoordinateReq = await request(app)
+      .post("/hit-coordinate")
+      .send({ gameSessionId, clientX: 65, clientY: 110 });
+
+    const hitCoordinateRes = hitCoordinateReq.body;
+
+    expect(hitCoordinateRes.CharacterData).toHaveLength(0);
+  });
 });
