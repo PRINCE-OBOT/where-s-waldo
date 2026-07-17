@@ -7,9 +7,10 @@ const hitCoordinateController = async (req: Request, res: Response) => {
 
   const TOLERANCE = 10;
 
-  const coordinates = await prisma.$transaction(async (tx) => {
+  const updatedCoordinates = await prisma.$transaction(async (tx) => {
     const where = {
       gameSessionId,
+      found: false,
       x: {
         gte: clientX - TOLERANCE,
         lte: clientX + TOLERANCE
@@ -20,17 +21,31 @@ const hitCoordinateController = async (req: Request, res: Response) => {
       }
     };
 
-    await tx.coordinate.updateMany({
+    const updated = await tx.coordinate.updateMany({
       where,
       data: {
         found: true
       }
     });
 
+    if (updated.count) where.found = true;
+
     return await tx.coordinate.findMany({ where });
   });
 
-  res.json({ CharacterData: getCharacterData(coordinates) });
+  const remainingFoundCharacters = await prisma.coordinate.count({
+    where: {
+      gameSessionId,
+      found: false
+    }
+  });
+
+  const allCharacterFound = remainingFoundCharacters === 0;
+
+  res.json({
+    characterData: getCharacterData(updatedCoordinates),
+    allCharacterFound
+  });
 };
 
 export { hitCoordinateController };
