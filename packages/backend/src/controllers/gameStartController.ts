@@ -1,22 +1,21 @@
 import type { Request, Response } from "express";
 import { prisma } from "../lib/prisma.js";
-import { getCharacterData, getCharacterNames } from "../utils/helper.js";
+import {
+  getCharacterOtherData
+} from "../utils/helper.js";
 
 const postController = async (req: Request, res: Response) => {
   const { clientX, clientY } = req.body;
 
   const gameSession = await prisma.gameSession.create({});
 
-  const xs = [0.5, 0.25, 1];
-  const ys = [0.5, 0.25, 1];
-
   const coordinates = await Promise.all(
-    getCharacterNames().map((characterName, i) =>
+    getCharacterOtherData().map((obj) =>
       prisma.coordinate.create({
         data: {
-          x: clientX * xs[i]!,
-          y: clientY * ys[i]!,
-          character_name: characterName,
+          x: clientX * obj.x,
+          y: clientY * obj.y,
+          character_name: obj.character_name,
           gameSessionId: gameSession.id
         }
       })
@@ -25,7 +24,7 @@ const postController = async (req: Request, res: Response) => {
 
   res.json({
     gameSessionId: gameSession.id,
-    characterData: getCharacterData(coordinates)
+    coordinates
   });
 };
 

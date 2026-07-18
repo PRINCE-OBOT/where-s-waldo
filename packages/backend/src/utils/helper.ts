@@ -1,15 +1,7 @@
-interface Coordinate {
-  character_name: string;
-  found: boolean;
-}
-
-export const getCharacterNames = () => ["waldo", "wodlaw", "wenda"];
-
-export const getCharacterData = (coordinates: Coordinate[]) => {
-  const characterNames = getCharacterNames();
-
-  return coordinates.map((coordinate, i) => ({
-    found: coordinate.found,
-    characterName: characterNames[i]
-  }));
+export const getCharacterOtherData = () => {
+  return [
+    { character_name: "Waldo", x: 0.5, y: 0.5 },
+    { character_name: "Wodlaw", x: 0.25, y: 0.25 },
+    { character_name: "Wenda", x: 1, y: 1 }
+  ];
 };

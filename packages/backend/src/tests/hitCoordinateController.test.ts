@@ -23,7 +23,7 @@ describe("POST /hit-coordinate", () => {
       .post("/hit-coordinate")
       .send({ gameSessionId, clientX: 50, clientY: 100 });
 
-    expect(firstHit.body.characterData).toHaveLength(1);
+    expect(firstHit.body.hitCharacters).toHaveLength(1);
     expect(firstHit.body.allCharacterFound).toBeFalsy();
   });
 
@@ -42,10 +42,10 @@ describe("POST /hit-coordinate", () => {
       .post("/hit-coordinate")
       .send({ gameSessionId, clientX: 25, clientY: 50 });
 
-    expect(firstHit.body.characterData).toHaveLength(1);
+    expect(firstHit.body.hitCharacters).toHaveLength(1);
     expect(firstHit.body.allCharacterFound).toBeFalsy();
 
-    expect(secondHit.body.characterData).toHaveLength(1);
+    expect(secondHit.body.hitCharacters).toHaveLength(1);
     expect(secondHit.body.allCharacterFound).toBeFalsy();
   });
 
@@ -64,10 +64,10 @@ describe("POST /hit-coordinate", () => {
       .post("/hit-coordinate")
       .send({ gameSessionId, clientX: 15, clientY: 60 });
 
-    expect(firstHit.body.characterData).toHaveLength(1);
+    expect(firstHit.body.hitCharacters).toHaveLength(1);
     expect(firstHit.body.allCharacterFound).toBeFalsy();
 
-    expect(secondHit.body.characterData).toHaveLength(1);
+    expect(secondHit.body.hitCharacters).toHaveLength(1);
     expect(secondHit.body.allCharacterFound).toBeFalsy();
   });
 
@@ -90,13 +90,13 @@ describe("POST /hit-coordinate", () => {
       .post("/hit-coordinate")
       .send({ gameSessionId, clientX: 100, clientY: 200 });
 
-    expect(firstHit.body.characterData).toHaveLength(1);
+    expect(firstHit.body.hitCharacters).toHaveLength(1);
     expect(firstHit.body.allCharacterFound).toBeFalsy();
 
-    expect(secondHit.body.characterData).toHaveLength(1);
+    expect(secondHit.body.hitCharacters).toHaveLength(1);
     expect(secondHit.body.allCharacterFound).toBeFalsy();
 
-    expect(thirdHit.body.characterData).toHaveLength(1);
+    expect(thirdHit.body.hitCharacters).toHaveLength(1);
     expect(thirdHit.body.allCharacterFound).toBeTruthy();
   });
 
@@ -111,7 +111,7 @@ describe("POST /hit-coordinate", () => {
       .post("/hit-coordinate")
       .send({ gameSessionId, clientX: 30, clientY: 100 });
 
-    expect(firstHit.body.characterData).toHaveLength(0);
+    expect(firstHit.body.hitCharacters).toHaveLength(0);
     expect(firstHit.body.allCharacterFound).toBeFalsy();
   });
 });

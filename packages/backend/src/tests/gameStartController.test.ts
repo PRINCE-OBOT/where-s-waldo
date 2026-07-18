@@ -21,7 +21,7 @@ describe("POST /game-start", () => {
 
     expect(body).toEqual({
       gameSessionId: expect.any(String),
-      characterData: expect.any(Array)
+      coordinates: expect.any(Array)
     });
     expect(status).toBe(200);
   });

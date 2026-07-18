@@ -1,13 +1,12 @@
 import type { Request, Response } from "express";
 import { prisma } from "../lib/prisma.js";
-import { getCharacterData } from "../utils/helper.js";
 
 const hitCoordinateController = async (req: Request, res: Response) => {
   const { gameSessionId, clientX, clientY } = req.body;
 
   const TOLERANCE = 10;
 
-  const updatedCoordinates = await prisma.$transaction(async (tx) => {
+  const hitCharacters = await prisma.$transaction(async (tx) => {
     const where = {
       gameSessionId,
       found: false,
@@ -33,17 +32,17 @@ const hitCoordinateController = async (req: Request, res: Response) => {
     return await tx.coordinate.findMany({ where });
   });
 
-  const remainingFoundCharacters = await prisma.coordinate.count({
+  const charactersToFind = await prisma.coordinate.count({
     where: {
       gameSessionId,
       found: false
     }
   });
 
-  const allCharacterFound = remainingFoundCharacters === 0;
+  const allCharacterFound = charactersToFind === 0;
 
   res.json({
-    characterData: getCharacterData(updatedCoordinates),
+    hitCharacters,
     allCharacterFound
   });
 };
