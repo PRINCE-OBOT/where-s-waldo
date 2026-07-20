@@ -2,21 +2,22 @@ import type { Request, Response } from "express";
 import { prisma } from "../lib/prisma.js";
 
 const hitCoordinateController = async (req: Request, res: Response) => {
-  const { gameSessionId, clientX, clientY } = req.body;
+  const { gameSessionId, offsetX, offsetY, character_name } = req.body;
 
   const TOLERANCE = 10;
 
-  const hitCharacters = await prisma.$transaction(async (tx) => {
+  const hitCharacter = await prisma.$transaction(async (tx) => {
     const where = {
       gameSessionId,
       found: false,
+      character_name,
       x: {
-        gte: clientX - TOLERANCE,
-        lte: clientX + TOLERANCE
+        gte: offsetX - TOLERANCE,
+        lte: offsetX + TOLERANCE
       },
       y: {
-        gte: clientY - TOLERANCE,
-        lte: clientY + TOLERANCE
+        gte: offsetY - TOLERANCE,
+        lte: offsetY + TOLERANCE
       }
     };
 
@@ -29,7 +30,7 @@ const hitCoordinateController = async (req: Request, res: Response) => {
 
     if (updated.count) where.found = true;
 
-    return await tx.coordinate.findMany({ where });
+    return await tx.coordinate.findFirst({ where });
   });
 
   const charactersToFind = await prisma.coordinate.count({
@@ -41,9 +42,22 @@ const hitCoordinateController = async (req: Request, res: Response) => {
 
   const allCharacterFound = charactersToFind === 0;
 
+  let timeStamp = 0
+  if (allCharacterFound) {
+    const gameSession = await prisma.gameSession.findUnique({
+      where: {
+        id: gameSessionId
+      }
+    });
+
+    if (gameSession) {
+      timeStamp = new Date().getTime() - gameSession.createdAt.getTime();
+    }
+  }
   res.json({
-    hitCharacters,
-    allCharacterFound
+    hitCharacter,
+    allCharacterFound,
+    timeStamp
   });
 };
 

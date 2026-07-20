@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  @apply text-parchment;
+}
+
+/* Crosshair cursor used while hunting on the game board */
+.cursor-crosshair-custom {
+  cursor: crosshair;
+}
+
+/* Subtle paper grain overlay */
+.paper-grain {
+  background-image: radial-gradient(rgba(0, 0, 0, 0.08) 1px, transparent 1px);
+  background-size: 3px 3px;
+}
+
+/* Ink stamp pop-in animation for hit feedback */
+@keyframes stamp-in {
+  0% {
+    transform: scale(2.2) rotate(-8deg);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(0.95) rotate(-8deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(-8deg);
+    opacity: 1;
+  }
+}
+
+.animate-stamp {
+  animation: stamp-in 260ms ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-stamp {
+    animation: none;
+  }
+}

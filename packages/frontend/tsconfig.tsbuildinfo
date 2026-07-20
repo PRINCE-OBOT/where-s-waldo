@@ -1,0 +1,1 @@
+{"root":["./src/App.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/components/CharacterRoster.tsx","./src/components/GameImageBoard.tsx","./src/components/StampFeedback.tsx","./src/components/VictoryModal.tsx","./src/data/caseFiles.ts","./src/lib/api.ts","./src/lib/storage.ts","./src/pages/GamePage.tsx","./src/pages/HomePage.tsx","./src/types/index.ts"],"version":"5.9.3"}

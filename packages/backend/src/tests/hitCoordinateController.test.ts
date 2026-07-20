@@ -15,103 +15,130 @@ describe("POST /hit-coordinate", () => {
   test("Should find one character", async () => {
     const gameStartReq = await request(app)
       .post("/game-start")
-      .send({ clientX: 100, clientY: 200 });
+      .send({ clientWidth: 100, clientHeight: 200 });
 
     const gameSessionId = gameStartReq.body.gameSessionId;
 
-    const firstHit = await request(app)
-      .post("/hit-coordinate")
-      .send({ gameSessionId, clientX: 50, clientY: 100 });
+    const firstHit = await request(app).post("/hit-coordinate").send({
+      gameSessionId,
+      offsetX: 50,
+      offsetY: 100,
+      character_name: "Waldo"
+    });
 
-    expect(firstHit.body.hitCharacters).toHaveLength(1);
+    expect(firstHit.body.hitCharacter).not.toBeNull();
     expect(firstHit.body.allCharacterFound).toBeFalsy();
   });
 
   test("Should find two characters by hitting exactly at it spot", async () => {
     const gameStartReq = await request(app)
       .post("/game-start")
-      .send({ clientX: 100, clientY: 200 });
+      .send({ clientWidth: 100, clientHeight: 200 });
 
     const gameSessionId = gameStartReq.body.gameSessionId;
 
-    const firstHit = await request(app)
-      .post("/hit-coordinate")
-      .send({ gameSessionId, clientX: 50, clientY: 100 });
+    const firstHit = await request(app).post("/hit-coordinate").send({
+      gameSessionId,
+      offsetX: 50,
+      offsetY: 100,
+      character_name: "Waldo"
+    });
 
-    const secondHit = await request(app)
-      .post("/hit-coordinate")
-      .send({ gameSessionId, clientX: 25, clientY: 50 });
+    const secondHit = await request(app).post("/hit-coordinate").send({
+      gameSessionId,
+      offsetX: 25,
+      offsetY: 50,
+      character_name: "Wodlaw"
+    });
 
-    expect(firstHit.body.hitCharacters).toHaveLength(1);
+    expect(firstHit.body.hitCharacter).not.toBeNull();
     expect(firstHit.body.allCharacterFound).toBeFalsy();
 
-    expect(secondHit.body.hitCharacters).toHaveLength(1);
+    expect(secondHit.body.hitCharacter).not.toBeNull();
     expect(secondHit.body.allCharacterFound).toBeFalsy();
   });
 
   test("Should find two characters by hitting around it spot", async () => {
     const gameStartReq = await request(app)
       .post("/game-start")
-      .send({ clientX: 100, clientY: 200 });
+      .send({ clientWidth: 100, clientHeight: 200 });
 
     const gameSessionId = gameStartReq.body.gameSessionId;
 
-    const firstHit = await request(app)
-      .post("/hit-coordinate")
-      .send({ gameSessionId, clientX: 40, clientY: 110 });
+    const firstHit = await request(app).post("/hit-coordinate").send({
+      gameSessionId,
+      offsetX: 40,
+      offsetY: 110,
+      character_name: "Waldo"
+    });
 
-    const secondHit = await request(app)
-      .post("/hit-coordinate")
-      .send({ gameSessionId, clientX: 15, clientY: 60 });
+    const secondHit = await request(app).post("/hit-coordinate").send({
+      gameSessionId,
+      offsetX: 15,
+      offsetY: 60,
+      character_name: "Wodlaw"
+    });
 
-    expect(firstHit.body.hitCharacters).toHaveLength(1);
+    expect(firstHit.body.hitCharacter).not.toBeNull();
     expect(firstHit.body.allCharacterFound).toBeFalsy();
 
-    expect(secondHit.body.hitCharacters).toHaveLength(1);
+    expect(secondHit.body.hitCharacter).not.toBeNull();
     expect(secondHit.body.allCharacterFound).toBeFalsy();
   });
 
   test("Should find all characters by hitting exactly at it spot", async () => {
     const gameStartReq = await request(app)
       .post("/game-start")
-      .send({ clientX: 100, clientY: 200 });
+      .send({ clientWidth: 100, clientHeight: 200 });
 
     const gameSessionId = gameStartReq.body.gameSessionId;
 
-    const firstHit = await request(app)
-      .post("/hit-coordinate")
-      .send({ gameSessionId, clientX: 40, clientY: 110 });
+    const firstHit = await request(app).post("/hit-coordinate").send({
+      gameSessionId,
+      offsetX: 40,
+      offsetY: 110,
+      character_name: "Waldo"
+    });
 
-    const secondHit = await request(app)
-      .post("/hit-coordinate")
-      .send({ gameSessionId, clientX: 15, clientY: 60 });
+    const secondHit = await request(app).post("/hit-coordinate").send({
+      gameSessionId,
+      offsetX: 15,
+      offsetY: 60,
+      character_name: "Wodlaw"
+    });
 
-    const thirdHit = await request(app)
-      .post("/hit-coordinate")
-      .send({ gameSessionId, clientX: 100, clientY: 200 });
+    const thirdHit = await request(app).post("/hit-coordinate").send({
+      gameSessionId,
+      offsetX: 100,
+      offsetY: 200,
+      character_name: "Wenda"
+    });
 
-    expect(firstHit.body.hitCharacters).toHaveLength(1);
+    expect(firstHit.body.hitCharacter).not.toBeNull();
     expect(firstHit.body.allCharacterFound).toBeFalsy();
 
-    expect(secondHit.body.hitCharacters).toHaveLength(1);
+    expect(secondHit.body.hitCharacter).not.toBeNull();
     expect(secondHit.body.allCharacterFound).toBeFalsy();
 
-    expect(thirdHit.body.hitCharacters).toHaveLength(1);
+    expect(thirdHit.body.hitCharacter).not.toBeNull();
     expect(thirdHit.body.allCharacterFound).toBeTruthy();
   });
 
   test("Should not find any character", async () => {
     const gameStartReq = await request(app)
       .post("/game-start")
-      .send({ clientX: 100, clientY: 200 });
+      .send({ clientWidth: 100, clientHeight: 200 });
 
     const gameSessionId = gameStartReq.body.gameSessionId;
 
-    const firstHit = await request(app)
-      .post("/hit-coordinate")
-      .send({ gameSessionId, clientX: 30, clientY: 100 });
+    const firstHit = await request(app).post("/hit-coordinate").send({
+      gameSessionId,
+      offsetX: 30,
+      offsetY: 100,
+      character_name: "Waldo"
+    });
 
-    expect(firstHit.body.hitCharacters).toHaveLength(0);
+    expect(firstHit.body.hitCharacter).toBeNull();
     expect(firstHit.body.allCharacterFound).toBeFalsy();
   });
 });

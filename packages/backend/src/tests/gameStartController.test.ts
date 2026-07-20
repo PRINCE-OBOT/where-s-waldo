@@ -15,13 +15,13 @@ describe("POST /game-start", () => {
   test("Should respond with game session and character data ", async () => {
     const gameStartReq = await request(app)
       .post("/game-start")
-      .send({ clientX: 100, clientY: 200 });
+      .send({ clientWidth: 100, clientHeight: 200 });
 
     const { body, status } = gameStartReq;
 
     expect(body).toEqual({
       gameSessionId: expect.any(String),
-      coordinates: expect.any(Array)
+      roster: expect.any(Array)
     });
     expect(status).toBe(200);
   });
