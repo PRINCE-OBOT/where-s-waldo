@@ -25,7 +25,7 @@ export const getCharacterOtherData = (caseId: string) => {
       { character_name: "Wodlaw", x: 0.25, y: 0.25 },
       { character_name: "Waldo", x: 0.5, y: 0.5 },
     ],
-  }[caseId];
+  }[caseId] ?? [];
 };
 
 export const generateRoster = (coordinates: Coordinates[]) => {
