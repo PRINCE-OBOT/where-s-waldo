@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build": "prisma generate && tsc -b",
+    "build": "npm install && prisma generate && tsc -b",
     "migrate:test": "dotenv -e .env.test -- prisma migrate deploy",
     "test": "node  --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
