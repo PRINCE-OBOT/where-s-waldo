@@ -60,7 +60,6 @@ export default function GamePage() {
     if (initializedRef.current) return;
     initializedRef.current = true;
 
-
     if (!caseId) return;
     const stored = loadSession(caseId);
     if (stored) {
@@ -87,10 +86,7 @@ export default function GamePage() {
           allFound: false
         });
       } catch {
-        console.log("hi");
         setStatus("error");
-      } finally {
-        console.log("haha");
       }
     }
   };
@@ -183,7 +179,7 @@ export default function GamePage() {
       saveSession({
         gameSessionId: res.gameSessionId,
         caseId,
-        roster,
+        roster: res.roster,
         imgDim,
         timeStamp,
         allFound: false
