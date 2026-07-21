@@ -40,7 +40,6 @@ export default function GamePage() {
     setAllFound(stored.allFound);
     initializedRef.current = true;
     setStatus("ready");
-    console.log(timeStamp, "start");
   };
 
   if (!caseFile) {
@@ -61,6 +60,7 @@ export default function GamePage() {
     if (initializedRef.current) return;
     initializedRef.current = true;
 
+
     if (!caseId) return;
     const stored = loadSession(caseId);
     if (stored) {
@@ -68,7 +68,7 @@ export default function GamePage() {
     } else {
       try {
         const res: StartGameRes = await startGame({
-          imageId: caseFile.id,
+          caseId,
           clientWidth,
           clientHeight
         });
@@ -80,14 +80,17 @@ export default function GamePage() {
 
         saveSession({
           gameSessionId: res.gameSessionId,
-          caseId: caseFile.id,
+          caseId,
           roster,
           timeStamp,
           imgDim,
           allFound: false
         });
       } catch {
+        console.log("hi");
         setStatus("error");
+      } finally {
+        console.log("haha");
       }
     }
   };
@@ -165,7 +168,7 @@ export default function GamePage() {
     const { clientWidth, clientHeight } = imgDim as ImgDim;
     try {
       const res: StartGameRes = await startGame({
-        imageId: caseFile.id,
+        caseId,
         clientWidth,
         clientHeight
       });
@@ -179,7 +182,7 @@ export default function GamePage() {
 
       saveSession({
         gameSessionId: res.gameSessionId,
-        caseId: caseFile.id,
+        caseId,
         roster,
         imgDim,
         timeStamp,

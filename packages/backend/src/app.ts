@@ -2,14 +2,10 @@ import "dotenv/config";
 
 import cors from "cors";
 import express from "express";
-import type { Request, Response, NextFunction } from "express";
 
 import { router } from "./routes/index.js";
-import { prisma } from "./lib/prisma.js";
 
 const app = express();
-
-const INVALID_LOGIN_MSG = "Invalid username or password";
 
 app.use(
   cors({

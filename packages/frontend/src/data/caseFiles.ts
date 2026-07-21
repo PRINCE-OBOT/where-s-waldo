@@ -1,7 +1,5 @@
 import type { CaseFile } from "../types";
 
-// Drop your four illustrations into /public/images with these filenames
-// (or edit the src paths below to point wherever you like).
 export const CASE_FILES: CaseFile[] = [
   {
     id: "case-01",

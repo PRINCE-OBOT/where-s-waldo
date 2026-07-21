@@ -15,7 +15,7 @@ describe("POST /hit-coordinate", () => {
   test("Should find one character", async () => {
     const gameStartReq = await request(app)
       .post("/game-start")
-      .send({ clientWidth: 100, clientHeight: 200 });
+      .send({ clientWidth: 100, clientHeight: 200, caseId: 'case-01' });
 
     const gameSessionId = gameStartReq.body.gameSessionId;
 
@@ -33,7 +33,7 @@ describe("POST /hit-coordinate", () => {
   test("Should find two characters by hitting exactly at it spot", async () => {
     const gameStartReq = await request(app)
       .post("/game-start")
-      .send({ clientWidth: 100, clientHeight: 200 });
+      .send({ clientWidth: 100, clientHeight: 200, caseId: 'case-01' });
 
     const gameSessionId = gameStartReq.body.gameSessionId;
 
@@ -61,7 +61,7 @@ describe("POST /hit-coordinate", () => {
   test("Should find two characters by hitting around it spot", async () => {
     const gameStartReq = await request(app)
       .post("/game-start")
-      .send({ clientWidth: 100, clientHeight: 200 });
+      .send({ clientWidth: 100, clientHeight: 200, caseId: 'case-01' });
 
     const gameSessionId = gameStartReq.body.gameSessionId;
 
@@ -89,7 +89,7 @@ describe("POST /hit-coordinate", () => {
   test("Should find all characters by hitting exactly at it spot", async () => {
     const gameStartReq = await request(app)
       .post("/game-start")
-      .send({ clientWidth: 100, clientHeight: 200 });
+      .send({ clientWidth: 100, clientHeight: 200, caseId: 'case-01' });
 
     const gameSessionId = gameStartReq.body.gameSessionId;
 
@@ -127,7 +127,7 @@ describe("POST /hit-coordinate", () => {
   test("Should not find any character", async () => {
     const gameStartReq = await request(app)
       .post("/game-start")
-      .send({ clientWidth: 100, clientHeight: 200 });
+      .send({ clientWidth: 100, clientHeight: 200, caseId: 'case-01' });
 
     const gameSessionId = gameStartReq.body.gameSessionId;
 

@@ -15,7 +15,7 @@ describe("POST /game-start", () => {
   test("Should respond with game session and character data ", async () => {
     const gameStartReq = await request(app)
       .post("/game-start")
-      .send({ clientWidth: 100, clientHeight: 200 });
+      .send({ clientWidth: 100, clientHeight: 200, caseId: 'case-01' });
 
     const { body, status } = gameStartReq;
 

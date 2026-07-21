@@ -16,19 +16,8 @@ async function request<T>(path: string, body: unknown): Promise<T> {
   return res.json() as Promise<T>;
 }
 
-/**
- * Starts a new game session.
- *
- * NOTE: the current backend's /game-start controller only reads
- * `clientX` / `clientY` (the natural pixel dimensions of the image, used
- * to convert each character's stored fractional position into an absolute
- * coordinate) and does not accept an image/case identifier -- it always
- * builds coordinates from the same hardcoded `getCharacterOtherData()`
- * list. We pass `imageId` along anyway so it's a no-op today and a
- * one-line backend change away from working once the controller reads it.
- */
 interface StartGameParams {
-  imageId: string;
+  caseId: string;
   clientWidth: number;
   clientHeight: number;
 }
@@ -41,14 +30,14 @@ interface HitCoordinateParams {
 }
 
 export function startGame({
-  imageId,
+  caseId,
   clientWidth,
   clientHeight
 }: StartGameParams): Promise<StartGameRes> {
   return request<StartGameRes>("/game-start", {
     clientWidth,
     clientHeight,
-    imageId
+    caseId
   });
 }
 

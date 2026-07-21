@@ -4,8 +4,8 @@ import * as gameStart from "../controllers/gameStartController.js";
 
 const router = Router();
 
-router.post("/hit-coordinate", hitCoordinateController);
-
 router.post("/game-start", gameStart.postController);
+
+router.post("/hit-coordinate", hitCoordinateController);
 
 export { router };
