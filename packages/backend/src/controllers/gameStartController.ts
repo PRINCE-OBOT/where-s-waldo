@@ -3,7 +3,6 @@ import { prisma } from "../lib/prisma.js";
 import { generateRoster, getCharacterOtherData } from "../utils/helper.js";
 
 const postController = async (req: Request, res: Response) => {
-  console.log('caseId')
   const { clientWidth, clientHeight, caseId } = req.body;
 
   const gameSession = await prisma.gameSession.create({});
@@ -20,7 +19,6 @@ const postController = async (req: Request, res: Response) => {
     )
   );
 
-  console.log(gameSession.id, coordinates);
   res.json({
     gameSessionId: gameSession.id,
     roster: generateRoster(coordinates)
