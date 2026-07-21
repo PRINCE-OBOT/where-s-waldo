@@ -4,14 +4,15 @@ import cors from "cors";
 import express from "express";
 
 import { router } from "./routes/index.js";
+import { env } from "../env.js";
 
 const app = express();
 
 app.use(
   cors({
     origin: [
-      "http://localhost:5173" // frontend local dev
-      // env.FRONTEND_URL!, // frontend production
+      "http://localhost:5173", // frontend local dev
+      env.FRONTEND_URL!, // frontend production
     ],
     credentials: true
   })
