@@ -23,7 +23,7 @@ if (errors.length !== 0)
 // };
 export const env = {
   DATABASE_URL: process.env.DATABASE_URL,
-  // TEST_DATABASE_URL: process.env.TEST_DATABASE_URL,
-  // PORT: process.env.PORT,
+  TEST_DATABASE_URL: process.env.TEST_DATABASE_URL || '',
+  PORT: process.env.PORT || '3000',
   NODE_ENV: process.env.NODE_ENV
 };
