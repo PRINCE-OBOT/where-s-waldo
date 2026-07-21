@@ -30,8 +30,6 @@ export default function GameImageBoard({
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (disabled || !imgRef.current) return;
-    const img = imgRef.current;
-
     const { offsetX, offsetY } = e.nativeEvent;
 
     onBoardClick(offsetX, offsetY);

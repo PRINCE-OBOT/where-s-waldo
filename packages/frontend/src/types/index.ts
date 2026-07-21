@@ -1,6 +1,3 @@
-// Mirrors the shape returned by Prisma's Coordinate model.
-// Note: x/y are only used internally to derive the character roster and
-// found state -- they are never rendered, since they'd give away the answer.
 export interface Coordinate {
   id: string;
   x: number;

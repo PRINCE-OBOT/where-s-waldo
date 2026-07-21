@@ -6,6 +6,7 @@ const postController = async (req: Request, res: Response) => {
   const { clientWidth, clientHeight, caseId } = req.body;
 
   const gameSession = await prisma.gameSession.create({});
+  
   const coordinates = await Promise.all(
     getCharacterOtherData(caseId).map((obj) =>
       prisma.coordinate.create({
