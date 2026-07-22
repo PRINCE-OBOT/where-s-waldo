@@ -19,6 +19,7 @@ export default {
           dark: "#9C7A32"
         },
         stamp: "#B23A2E",
+        roster: "#b2b572",
         moss: "#4C6444"
       },
       fontFamily: {

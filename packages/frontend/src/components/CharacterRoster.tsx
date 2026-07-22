@@ -1,14 +1,21 @@
 import type { RosterEntry } from "../types";
+import { Spinner } from "./Spinner";
 
 interface Props {
   roster: RosterEntry[];
   activeCharacter: string | null;
+  hitCoordLoading: boolean;
   onSelect: (name: string) => void;
 }
 
-export default function CharacterRoster({ roster, activeCharacter, onSelect }: Props) {
+export default function CharacterRoster({
+  roster,
+  activeCharacter,
+  hitCoordLoading,
+  onSelect
+}: Props) {
   return (
-    <aside className="w-full md:w-56 shrink-0 bg-parchment text-ink rounded-sm border border-brass/40 p-4 h-fit">
+    <aside className="w-full md:w-56 shrink-0 bg-roster text-ink rounded-sm border border-brass/40 p-4 h-fit">
       <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-ink/50 mb-3">
         Persons of interest
       </p>
@@ -25,8 +32,8 @@ export default function CharacterRoster({ roster, activeCharacter, onSelect }: P
                   entry.found
                     ? "border-moss/40 bg-moss/10 text-moss line-through decoration-2"
                     : isActive
-                    ? "border-stamp bg-stamp/10 text-stamp"
-                    : "border-ink/15 hover:border-brass hover:bg-brass/10"
+                      ? "border-stamp bg-stamp/10 text-stamp"
+                      : "border-ink/15 hover:border-brass hover:bg-brass/10"
                 ].join(" ")}
               >
                 {entry.found ? "✓ " : isActive ? "› " : ""}
@@ -41,6 +48,8 @@ export default function CharacterRoster({ roster, activeCharacter, onSelect }: P
           Tap a name, then tap them in the scene.
         </p>
       )}
+
+      {hitCoordLoading && <Spinner text={"Verifying search result"} />}
     </aside>
   );
 }

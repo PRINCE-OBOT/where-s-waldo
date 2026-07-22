@@ -38,7 +38,7 @@ export default function GameImageBoard({
   return (
     <div
       className={[
-        "relative max-h-[600px] max-w-[500px] select-none rounded- scrollbar-hidden overflow-auto border-2 border-brass/40",
+        "relative max-h-[600px] max-w-[700px] select-none rounded-sm scrollbar-hidden overflow-auto border-2 border-brass/40",
         disabled ? "cursor-default" : "cursor-crosshair-custom"
       ].join(" ")}
     >

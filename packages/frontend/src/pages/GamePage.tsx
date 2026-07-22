@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { CASE_FILES } from "../data/caseFiles";
 import { startGame, hitCoordinate } from "../lib/api";
@@ -7,6 +7,7 @@ import type { ImgDim, RosterEntry, SetSession, StartGameRes } from "../types";
 import CharacterRoster from "../components/CharacterRoster";
 import GameImageBoard, { Stamp } from "../components/GameImageBoard";
 import VictoryModal from "../components/VictoryModal";
+import { Spinner } from "../components/Spinner";
 
 let stampCounter = 0;
 
@@ -14,6 +15,8 @@ export default function GamePage() {
   const { caseId } = useParams<{ caseId: string }>();
   const caseFile = CASE_FILES.find((c) => c.id === caseId);
 
+  const [loading, setLoading] = useState<boolean>(true);
+  const [hitCoordLoading, setHitCoordLoading] = useState<boolean>(false);
   const [gameSessionId, setGameSessionId] = useState<string | null>(null);
   const [roster, setRoster] = useState<RosterEntry[]>([]);
   const [activeCharacter, setActiveCharacter] = useState<string | null>(null);
@@ -89,6 +92,7 @@ export default function GamePage() {
         setStatus("error");
       }
     }
+    setLoading(false);
   };
 
   const handleBoardClick = async (offsetX: number, offsetY: number) => {
@@ -98,6 +102,7 @@ export default function GamePage() {
       window.setTimeout(() => setHint(null), 1800);
       return;
     }
+    setHitCoordLoading(true);
 
     const character_name = activeCharacter;
 
@@ -112,6 +117,7 @@ export default function GamePage() {
       const id = `stamp-${stampCounter++}`;
       const isHit = Boolean(res.hitCharacter);
 
+      setHitCoordLoading(false);
       setStamps((prev) => [
         ...prev,
         {
@@ -153,6 +159,8 @@ export default function GamePage() {
       if (res.allCharacterFound) setAllFound(true);
     } catch {
       setHint("Couldn't reach the server — try again.");
+      setHitCoordLoading(false);
+
       window.setTimeout(() => setHint(null), 2200);
     }
   };
@@ -174,6 +182,7 @@ export default function GamePage() {
       setRoster(res.roster);
       setAllFound(false);
       setActiveCharacter(null);
+      setLoading(false);
       setStamps([]);
 
       saveSession({
@@ -217,7 +226,21 @@ export default function GamePage() {
         </p>
       )}
 
-      <div className="flex flex-col md:flex-row gap-6 items-start">
+      <div className="flex flex-col gap-6 items-start">
+        <div className="flex">
+          {loading ? (
+            <Spinner text={"Loading characters board"} />
+          ) : (
+            roster.length > 0 && (
+              <CharacterRoster
+                roster={roster}
+                activeCharacter={activeCharacter}
+                hitCoordLoading={hitCoordLoading}
+                onSelect={setActiveCharacter}
+              />
+            )
+          )}
+        </div>
         <div className="flex-1">
           <GameImageBoard
             src={caseFile.src}
@@ -228,13 +251,6 @@ export default function GamePage() {
             onBoardClick={handleBoardClick}
           />
         </div>
-        {roster.length > 0 && (
-          <CharacterRoster
-            roster={roster}
-            activeCharacter={activeCharacter}
-            onSelect={setActiveCharacter}
-          />
-        )}
       </div>
 
       {allFound && (
