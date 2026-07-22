@@ -83,7 +83,7 @@ export default function GamePage() {
         saveSession({
           gameSessionId: res.gameSessionId,
           caseId,
-          roster,
+          roster: res.roster,
           timeStamp,
           imgDim,
           allFound: false
