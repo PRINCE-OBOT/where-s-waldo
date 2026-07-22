@@ -38,7 +38,7 @@ export default function GameImageBoard({
   return (
     <div
       className={[
-        "relative w-full select-none rounded-sm overflow-hidden border-2 border-brass/40",
+        "relative max-h-[600px] max-w-[500px] select-none rounded- scrollbar-hidden overflow-auto border-2 border-brass/40",
         disabled ? "cursor-default" : "cursor-crosshair-custom"
       ].join(" ")}
     >
@@ -46,7 +46,7 @@ export default function GameImageBoard({
         ref={imgRef}
         src={src}
         alt={alt}
-        className="w-full h-auto block"
+        className="max-w-none w-[1000px] h-[1000px] object-cover"
         onClick={handleClick}
         onLoad={(e) => {
           const { clientWidth, clientHeight } = e.currentTarget;

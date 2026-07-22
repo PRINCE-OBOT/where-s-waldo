@@ -1,6 +1,6 @@
 import "dotenv/config";
-// const required = ["DATABASE_URL", "TEST_DATABASE_URL", "PORT"];
-const required = ["DATABASE_URL", 'FRONTEND_URL'];
+const required = ["DATABASE_URL", "TEST_DATABASE_URL", "PORT"];
+// const required = ["DATABASE_URL"];
 
 const errors = [];
 
