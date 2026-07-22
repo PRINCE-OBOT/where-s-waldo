@@ -46,7 +46,7 @@ export default function GameImageBoard({
         ref={imgRef}
         src={src}
         alt={alt}
-        className="max-w-none w-[1000px] h-[1000px] object-cover"
+        className="w-[1000px] h-[1000px] object-cover"
         onClick={handleClick}
         onLoad={(e) => {
           const { clientWidth, clientHeight } = e.currentTarget;

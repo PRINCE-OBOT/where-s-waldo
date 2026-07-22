@@ -213,14 +213,14 @@ export default function GamePage() {
           </h1>
         </div>
         {hint && (
-          <p className="font-mono text-xs text-stamp bg-stamp/10 border border-stamp/40 px-3 py-1.5 rounded-sm">
+          <p className="font-mono text-xs text-stamp bg-stamp/10 border border-stamp/40 px-3 py-1.5 rounded-sm fixed right-[0px] top-[50px] z-20">
             {hint}
           </p>
         )}
       </div>
 
       {status === "error" && (
-        <p className="font-mono text-sm text-stamp mb-4">
+        <p className="font-mono text-sm text-stamp mb-4 fixed right-[0px] top-[50px] z-20">
           Couldn't start a session — confirm the backend is running and
           VITE_API_URL is correct.
         </p>
