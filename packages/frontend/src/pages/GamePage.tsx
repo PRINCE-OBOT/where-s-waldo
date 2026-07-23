@@ -226,7 +226,7 @@ export default function GamePage() {
         </p>
       )}
 
-      <div className="flex flex-col gap-6 items-start">
+      <div>
         <div className="flex">
           {loading ? (
             <Spinner text={"Loading characters board"} />
@@ -241,16 +241,14 @@ export default function GamePage() {
             )
           )}
         </div>
-        <div className="flex-1">
-          <GameImageBoard
-            src={caseFile.src}
-            alt={caseFile.title}
-            stamps={stamps}
-            disabled={allFound || status !== "ready"}
-            onImageReady={handleImageReady}
-            onBoardClick={handleBoardClick}
-          />
-        </div>
+        <GameImageBoard
+          src={caseFile.src}
+          alt={caseFile.title}
+          stamps={stamps}
+          disabled={allFound || status !== "ready"}
+          onImageReady={handleImageReady}
+          onBoardClick={handleBoardClick}
+        />
       </div>
 
       {allFound && (
